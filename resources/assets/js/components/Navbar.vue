@@ -14,10 +14,7 @@
 
       <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav">
-          <locale-dropdown/>
-          <!-- <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li> -->
+          <!--<locale-dropdown/>  -->
         </ul>
 
         <ul class="navbar-nav ml-auto">

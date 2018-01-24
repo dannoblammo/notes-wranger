@@ -10,6 +10,10 @@ const Settings = () => import('~/pages/settings/index').then(m => m.default || m
 const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.default || m)
 const SettingsPassword = () => import('~/pages/settings/password').then(m => m.default || m)
 
+const NotesIndex = () => import('~/pages/notes/index').then(m => m.default || m);
+const NotesCreate = () => import('~/pages/notes/create').then(m => m.default || m);
+
+
 export default [
   { path: '/', name: 'welcome', component: Welcome },
 
@@ -17,13 +21,13 @@ export default [
   { path: '/register', name: 'register', component: Register },
   { path: '/password/reset', name: 'password.request', component: PasswordRequest },
   { path: '/password/reset/:token', name: 'password.reset', component: PasswordReset },
-
   { path: '/home', name: 'home', component: Home },
   { path: '/settings', component: Settings, children: [
     { path: '', redirect: { name: 'settings.profile' }},
     { path: 'profile', name: 'settings.profile', component: SettingsProfile },
     { path: 'password', name: 'settings.password', component: SettingsPassword }
   ] },
-
+  { path: '/notes', name: 'notes_index', component: NotesIndex },
+  { path: '/notes/create', name: 'notes_create', component: NotesCreate },
   { path: '*', component: require('~/pages/errors/404.vue') }
 ]
