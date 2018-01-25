@@ -26,6 +26,11 @@
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
+              <router-link :to="{ name: 'notes_index' }" class="dropdown-item pl-3">
+                <i class="fa fa-pencil"></i>
+                {{ $t('nav_menu_link_notes_index') }}
+              </router-link>
+
               <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
                 <fa icon="cog" fixed-width/>
                 {{ $t('settings') }}
