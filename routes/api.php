@@ -23,7 +23,10 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
+    Route::get('notes', 'Notes\NotesController@index');
     Route::post('notes/create', 'Notes\NotesController@create');
+    Route::put('notes/{note}', 'Notes\NotesController@update');
+    Route::delete('notes/{note}', 'Notes\NotesController@destroy');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

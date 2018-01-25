@@ -1,5 +1,6 @@
 {
   "ok": "Ok",
+  "yes_confirm": "Yes",
   "cancel": "Cancel",
   "error_alert_title": "Oops...",
   "error_alert_text": "Something went wrong! Please try again.",
@@ -35,7 +36,6 @@
   "home_lead_paragraph": "Perhaps not a Google Keep-killer, but gets the job done.",
   "home_secondary_paragraph": "Create notes for yourself so that you can read those very same notes later, or never come back and read them again.  Your choice!",
   "home_create_new_button_label": "Create a note",
-  "notes_index_meta_title": "Your Notes",
   "notes_create_meta_title": "Create Note",
   "notes_create_card_title": "Create a new note",
   "notes_create_new_note_input_label": "Your note",
@@ -44,5 +44,14 @@
   "notes_create_note_created_message": "Note saved!",
   "notes_create_errors_title_required_message": "Your note needs a title",
   "notes_create_errors_contents_required_message": "The note shouldn't be empty",
-  "notes_create_save_error_message": "The note could not be saved.  Reload this page and try creating your note again."
+  "notes_create_save_error_message": "The note could not be saved.  Reload this page and try creating your note again.",
+  "notes_index_meta_title": "Your Notes",
+  "notes_index_heading": "Your Notes",
+  "notes_index_notes_exist_lead_message": "Tap or click on text to edit it",
+  "notes_index_load_error_message": "There was a problem loading your notes.  Reload the page and try again.",
+  "notes_index_save_error_message": "There was a problem saving this note.  Reload the page and try again.",
+  "notes_index_confirm_note_delete_title": "Confirm Note Deletion",
+  "notes_index_confirm_note_delete_message": "Once this note is deleted, it cannot be recovered.  Are you sure you want to delete it forever?",
+  "notes_index_delete_button_label": "Delete",
+  "notes_index_delete_error_message": "There was a problem when trying to delete this note. Please reload the page and try again."
 }
