@@ -8,10 +8,10 @@
       </p>
 
       <div class="jumbotron" v-if="pageIsReady && notes.length === 0">
-        <h1 class="display-4">{{$t('home_header')}}</h1>
-        <p class="lead">{{$t('home_lead_paragraph')}}</p>
+        <h1 class="display-4">{{$t('notes_index_no_notes_header')}} {{ user.name }}</h1>
+        <p class="lead">{{$t('notes_index_no_notes_lead')}}</p>
         <hr class="my-4">
-        <p>{{$t('home_secondary_paragraph')}}</p>
+        <p>{{$t('notes_index_no_notes_paragraph')}}</p>
         <p class="text-center">
           <router-link :to="{ name: 'notes_create' }" class="btn btn-primary btn-lg" href="#" role="button">
             {{$t('home_create_new_button_label')}}
@@ -35,13 +35,14 @@
         </div>
       </div>
     </div>
-
   </div>
 
 </template>
 
 <script>
+
   import axios from 'axios';
+  import { mapGetters } from 'vuex'
   import swal from 'sweetalert2';
   import Note from '../../components/Note';
 
@@ -54,6 +55,9 @@
     data: () => ({
       notes: [],
       pageIsReady: false,
+    }),
+    computed: mapGetters({
+      user: 'auth/user'
     }),
     mounted() {
       this.refresh();
@@ -90,7 +94,7 @@
         }).then(async (result) => {
           if (result.value) {
             try {
-              const {data} = await axios.delete(`api/notes/${noteId}`);
+              const {data} = await axios.delete(`api/notes/${note.id}`);
               if (data.success) {
                 this.notes = this.notes.filter((n) => n.id !== note.id);
               }
