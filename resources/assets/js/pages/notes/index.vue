@@ -26,7 +26,7 @@
         <div class="container">
           <div class="row justify-content-start align-items-top">
             <div class="col-md-6 col-md-auto mt-2" v-for="note in notes" :key="note.id">
-              <note :note="note" @noteDeleted="deleteNote($event.note)"></note>
+              <note :note="note" @noteDeleted="deleteNote($event.note)" @noteHidden="hideNote($event.note)"></note>
             </div>
           </div>
         </div>
@@ -43,6 +43,20 @@
   import swal from 'sweetalert2';
   import NewNote from '../../components/NewNote';
   import Note from '../../components/Note';
+
+  const HIDDEN_NOTES_LS_KEY = 'hidden_notes';
+
+  //todo move these to Vuex stores
+  const addHiddenNote = function(note) {
+    let hiddenNotes = JSON.parse(localStorage.getItem(HIDDEN_NOTES_LS_KEY)) || [];
+    hiddenNotes.push(note.id);
+    localStorage.setItem(HIDDEN_NOTES_LS_KEY, JSON.stringify(hiddenNotes));
+  };
+
+  const filterHiddenNotes = function(notes) {
+    let hiddenNotes = JSON.parse(localStorage.getItem(HIDDEN_NOTES_LS_KEY)) || [];
+    return notes.filter(n => hiddenNotes.indexOf(n.id) === -1);
+  };
 
   export default {
     components: {Note, NewNote},
@@ -66,15 +80,27 @@
       this.refresh();
     },
     methods: {
+      hideNote(note) {
+        swal({
+          title: this.$t('notes_index_confirm_note_hide_title'),
+          text: this.$t('notes_index_confirm_note_hide_message'),
+          type: 'warning',
+          showCancelButton: true,
+          confirmButtonText: this.$t('yes_confirm'),
+          focusCancel: true,
+          reverseButtons: true
+        }).then(async (result) => {
+          if (result.value) {
+            addHiddenNote(note);
+            this.notes = filterHiddenNotes(this.notes);
+          }
+        });
+      },
+
       async refresh() {
         try {
           const {data} = await axios.get('api/notes');
-          this.notes = data.map(note => {
-            note.updating = false;
-            note.modified = false;
-
-            return note;
-          });
+          this.notes = filterHiddenNotes(data);
         } catch (error) {
           swal({
             type: 'error',

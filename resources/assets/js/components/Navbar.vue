@@ -19,6 +19,12 @@
 
         <ul class="navbar-nav ml-auto">
           <!-- Authenticated -->
+          <li class="nav-item" v-if="user">
+            <router-link :to="{ name: 'notes_index' }" class="nav-link">
+              {{ $t('nav_menu_link_notes_index') }}
+            </router-link>
+          </li>
+
           <li v-if="user" class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-dark"
               href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -26,11 +32,6 @@
               {{ user.name }}
             </a>
             <div class="dropdown-menu">
-              <router-link :to="{ name: 'notes_index' }" class="dropdown-item pl-3">
-                <i class="fa fa-pencil"></i>
-                {{ $t('nav_menu_link_notes_index') }}
-              </router-link>
-
               <router-link :to="{ name: 'settings.profile' }" class="dropdown-item pl-3">
                 <fa icon="cog" fixed-width/>
                 {{ $t('settings') }}
@@ -70,19 +71,15 @@
   data: () => ({
     appName: window.config.appName
   }),
-
   computed: mapGetters({
     user: 'auth/user'
   }),
-
   components: {
     LocaleDropdown
   },
-
   methods: {
-    async logout () {
-      // Log out the user.
-      await this.$store.dispatch('auth/logout')
+    async logout() {
+      await this.$store.dispatch('auth/logout');
       this.$router.push({name: 'welcome'});
     }
   }

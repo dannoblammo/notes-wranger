@@ -63,5 +63,8 @@
   "notes_create_contents_placeholder": "Your note",
   "notes_index_shared_with_label": "Share with",
   "notes_index_shared_with_add_button_label": "Add",
-  "notes_index_shared_by_label": "This note has been shared with you by"
+  "notes_index_shared_by_label": "This note has been shared with you by",
+  "notes_index_hide_button_label": "Hide",
+  "notes_index_confirm_note_hide_title": "Hide Note",
+  "notes_index_confirm_note_hide_message": "Because someone else owns this note, it will still exist for other users it's shared with but you will not see it any more. Are you sure you want to permanently suppress seeing this note?"
 }

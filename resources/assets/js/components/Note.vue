@@ -18,13 +18,18 @@
                        @sharesUpdated="sharesUpdated(note, $event.shares)"></note-share-list>
       <div class="card-footer text-right">
 
-        <i class="fa fa-cog fa-spin fa-fw" v-show="note.updating"></i>
+        <i class="fa fa-cog fa-spin fa-fw" v-show="isUpdating"></i>
         <button class="btn btn-danger btn-sm" @click="deleteNote" v-if="!note.is_shared">
           <i class="fa fa-trash-o"></i>
           {{$t('notes_index_delete_button_label')}}
         </button>
         <small class="text-muted" v-if="note.is_shared">{{$t('notes_index_shared_by_label')}}
-          <span :title="note.user.email">{{note.user.name}}</span></small>
+          <span :title="note.user.email">{{note.user.name}}</span>
+        </small>
+        <button class="btn btn-warning btn-sm" @click="hideNote" v-if="note.is_shared">
+          <i class="fa fa-trash-o"></i>
+          {{$t('notes_index_hide_button_label')}}
+        </button>
       </div>
     </div>
   </div>
@@ -41,17 +46,27 @@
     components: {Editable, NoteShareList},
     props: ['note'],
     data() {
-      return {};
+      return {
+        isHidden: false,
+        isModified: false,
+        isUpdating: false
+      };
     },
     methods: {
       noteModified(note) {
-        note.modified = true;
+        this.isModified = true;
       },
+
       sharesUpdated(note, shares) {
         note.shares = shares;
-        note.modified = true;
+        this.isModified = true;
         this.saveNote(note);
       },
+
+      hideNote() {
+        this.$emit('noteHidden', {note: this.note});
+      },
+
       async saveNote(note) {
         const showError = () => {
           swal({
@@ -63,21 +78,18 @@
         };
 
         try {
-          if (note.modified) {
-            note.updating = true;
+          if (this.isModified) {
+            this.isUpdating = true;
             const {data} = await axios.put(`api/notes/${note.id}`, note);
-            note.updating = false;
-            if (data.success) {
-              note.modified = false;
-            } else {
-              showError();
-            }
+            this.isUpdating = false;
+            this.isModified = false;
           }
         } catch (error) {
+          this.isUpdating = false;
           showError();
         }
-        this.isLoading = false;
       },
+
       deleteNote() {
         this.$emit('noteDeleted', {note: this.note});
       }

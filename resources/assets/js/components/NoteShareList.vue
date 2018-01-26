@@ -5,6 +5,7 @@
       <span class="badge badge-pill badge-light share-email-pill" v-for="share in emails" @click="removeShare(share)">
         <img :src="generateGravatarUrl(share.email, 16)" class="rounded-circle profile-photo mr-1" :title="share.email">
         <span class="share-email">{{share.email}}</span>
+        <i class="fa fa-times text-danger"></i>
       </span>
     </div>
     <div class="row mt-1 justify-content-start">
@@ -253,9 +254,11 @@
           this.$emit('sharesUpdated', {shares: this.emails});
         }
       },
+
       generateGravatarUrl(email, size) {
-        return 'http://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + size;
+        return 'https://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + size;
       },
+
       removeShare(share) {
         this.emails = this.emails.filter(s => s.email !== share.email);
         this.$emit('sharesUpdated', {shares: this.emails});
