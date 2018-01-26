@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/password', 'Settings\PasswordController@update');
 
     Route::get('notes', 'Notes\NotesController@index');
-    Route::post('notes/create', 'Notes\NotesController@create');
+    Route::post('notes', 'Notes\NotesController@create');
     Route::put('notes/{note}', 'Notes\NotesController@update');
     Route::delete('notes/{note}', 'Notes\NotesController@destroy');
 });

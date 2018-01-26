@@ -11,7 +11,6 @@ const SettingsProfile = () => import('~/pages/settings/profile').then(m => m.def
 const SettingsPassword = () => import('~/pages/settings/password').then(m => m.default || m)
 
 const NotesIndex = () => import('~/pages/notes/index').then(m => m.default || m);
-const NotesCreate = () => import('~/pages/notes/create').then(m => m.default || m);
 
 
 export default [
@@ -28,6 +27,5 @@ export default [
     { path: 'password', name: 'settings.password', component: SettingsPassword }
   ] },
   { path: '/notes', name: 'notes_index', component: NotesIndex },
-  { path: '/notes/create', name: 'notes_create', component: NotesCreate },
   { path: '*', component: require('~/pages/errors/404.vue') }
 ]

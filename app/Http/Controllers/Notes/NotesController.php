@@ -17,8 +17,8 @@ class NotesController extends Controller
     public function create(Request $request)
     {
         $validatedData = $this->validate($request, [
-            'title' => 'max:255',
-            'contents' => 'required',
+            'title' => 'string|max:255|nullable',
+            'contents' => 'string|nullable',
         ]);
 
         $note = $request->user()->notes()->save(new Note($validatedData));
@@ -29,8 +29,8 @@ class NotesController extends Controller
     public function update(Request $request, $noteId)
     {
         $validatedData = $this->validate($request, [
-            'title' => 'max:255',
-            'contents' => 'required',
+            'title' => 'string|max:255|nullable',
+            'contents' => 'string|nullable',
         ]);
 
         $rowsUpdated = $request->user()->notes()->where('id', $noteId)->update($validatedData);

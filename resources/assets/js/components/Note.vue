@@ -4,16 +4,18 @@
       <h5 class="card-title">
         <editable :content="note.title"
                   @update="note.title = $event; noteModified(note);"
+                  :placeholder-text="$t('notes_create_title_placeholder')"
                   @lostFocus="saveNote(note)"></editable>
       </h5>
       <p class="card-text">
         <editable :content="note.contents"
                   @update="note.contents = $event; noteModified(note);"
+                  :placeholder-text="$t('notes_create_contents_placeholder')"
                   @lostFocus="saveNote(note)"></editable>
       </p>
       <div class="card-footer text-right">
         <i class="fa fa-cog fa-spin fa-fw" v-show="note.updating"></i>
-        <button class="btn btn-danger" @click="deleteNote">
+        <button class="btn btn-danger btn-sm" @click="deleteNote">
           <i class="fa fa-trash-o"></i>
           {{$t('notes_index_delete_button_label')}}
         </button>

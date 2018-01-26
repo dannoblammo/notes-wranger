@@ -6,7 +6,7 @@
     <hr class="my-4">
     <p>{{$t('home_secondary_paragraph')}}</p>
     <p class="lead">
-      <router-link :to="{ name: 'notes_create' }" class="btn btn-primary btn-lg" href="#" role="button">
+      <router-link :to="{ name: 'notes_index' }" class="btn btn-primary btn-lg" href="#" role="button">
         {{$t('home_create_new_button_label')}}
       </router-link>
     </p>

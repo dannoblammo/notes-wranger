@@ -49,13 +49,15 @@
   "notes_index_meta_title": "Your Notes",
   "notes_index_heading": "Your Notes",
   "notes_index_no_notes_header": "Well hello there",
-  "notes_index_no_notes_lead": "You have't made any notes!",
-  "notes_index_no_notes_paragraph": "Click the button to get started.  You can add and delete notes and marvel at the magic of databases saving and retriving your particular data!",
+  "notes_index_no_notes_lead": "You haven't made any notes!  Nothing notable to show you yet!",
+  "notes_index_no_notes_paragraph": "Add a note below and marvel at the magic of databases saving and retrieving your particular data!",
   "notes_index_notes_exist_lead_message": "Tap or click on text to edit it",
   "notes_index_load_error_message": "There was a problem loading your notes.  Reload the page and try again.",
   "notes_index_save_error_message": "There was a problem saving this note.  Reload the page and try again.",
   "notes_index_confirm_note_delete_title": "Confirm Note Deletion",
   "notes_index_confirm_note_delete_message": "Once this note is deleted, it cannot be recovered.  Are you sure you want to delete it forever?",
   "notes_index_delete_button_label": "Delete",
-  "notes_index_delete_error_message": "There was a problem when trying to delete this note. Please reload the page and try again."
+  "notes_index_delete_error_message": "There was a problem when trying to delete this note. Please reload the page and try again.",
+  "notes_create_title_placeholder": "Untitled note",
+  "notes_create_contents_placeholder": "Your note"
 }
