@@ -52,6 +52,7 @@
     },
     data: () => ({
       notes: [],
+      sharedNotes: [],
       pageIsReady: false,
       blankNote: {
         title: '',

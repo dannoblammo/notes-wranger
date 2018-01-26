@@ -2,7 +2,7 @@
   <div class="new-card-note-container" :class="{'col-md-8':isBeingEdited, 'col-md-6':!isBeingEdited}">
     <div class="card new-note-card" @lostFocus="saveNote(note)">
       <div class="card-body">
-        <h5 class="card-title note-title" :class="{'title-toggle-on': modified}">
+        <h5 class="card-title note-title" :class="{'edit-toggle-on': modified}">
           <editable :content="title"
                     :key="titleComponentKey"
                     :placeholder-text="$t('notes_create_title_placeholder')"
@@ -14,6 +14,9 @@
                     :placeholder-text="$t('notes_create_contents_placeholder')"
                     @update="noteContentsModified($event);"></editable>
         </p>
+        <note-share-list
+          :shares="shares" @sharesUpdated="sharesUpdated($event.shares)"
+          :class="{'edit-toggle-on': modified, 'edit-toggle-off':!modified}"></note-share-list>
         <div class="card-footer text-right" v-show="modified">
           <i class="fa fa-cog fa-spin fa-fw" v-show="updating"></i>
           <button class="btn btn-primary" @click="saveNote" :disabled="title ==='' && contents===''">
@@ -28,12 +31,13 @@
 
 <script type="text/javascript">
   import axios from 'axios';
+  import NoteShareList from './NoteShareList';
   import Editable from './Editable';
   import swal from 'sweetalert2';
 
   export default {
     name: 'new-note',
-    components: {Editable},
+    components: {Editable, NoteShareList},
     data() {
       return {
         //these keys are to be able to remount the child content-editable components after an update
@@ -43,13 +47,18 @@
         title: '',
         contents: '',
         modified: false,
-        updating: false
+        updating: false,
+        shares: []
       };
     },
     methods: {
       noteTitleModified(txt) {
         this.title = txt;
         this.isBeingEdited = true;
+        this.modified = true;
+      },
+      sharesUpdated(shares) {
+        this.shares = shares;
         this.modified = true;
       },
       noteContentsModified(txt) {
@@ -78,7 +87,11 @@
         try {
           if (this.modified) {
             this.updating = true;
-            const {data} = await axios.post(`api/notes`, {title: this.title, contents: this.contents});
+            const {data} = await axios.post(`api/notes`, {
+              title: this.title,
+              contents: this.contents,
+              shares: this.shares
+            });
             this.updating = false;
             this.$emit('noteCreated');
             this.resetNote();
@@ -103,7 +116,13 @@
     transition: max-height 0.25s ease-in-out;
   }
 
-  .card-title.note-title.title-toggle-on {
+  .edit-toggle-off {
+    max-height: 0;
+    transition: max-height 0.5s ease-in-out;
+    overflow: hidden;
+  }
+
+  .edit-toggle-on, .card-title.note-title.edit-toggle-on {
     max-height: 100%;
     transition: max-height 0.5s ease-in-out;
   }

@@ -13,12 +13,18 @@
                   :placeholder-text="$t('notes_create_contents_placeholder')"
                   @lostFocus="saveNote(note)"></editable>
       </p>
+      <note-share-list v-if="!note.is_shared"
+                       :shares="note.shares"
+                       @sharesUpdated="sharesUpdated(note, $event.shares)"></note-share-list>
       <div class="card-footer text-right">
+
         <i class="fa fa-cog fa-spin fa-fw" v-show="note.updating"></i>
-        <button class="btn btn-danger btn-sm" @click="deleteNote">
+        <button class="btn btn-danger btn-sm" @click="deleteNote" v-if="!note.is_shared">
           <i class="fa fa-trash-o"></i>
           {{$t('notes_index_delete_button_label')}}
         </button>
+        <small class="text-muted" v-if="note.is_shared">{{$t('notes_index_shared_by_label')}}
+          <span :title="note.user.email">{{note.user.name}}</span></small>
       </div>
     </div>
   </div>
@@ -27,11 +33,12 @@
 <script type="text/javascript">
   import axios from 'axios';
   import Editable from './Editable';
+  import NoteShareList from './NoteShareList';
   import swal from 'sweetalert2';
 
   export default {
     name: 'note',
-    components: {Editable},
+    components: {Editable, NoteShareList},
     props: ['note'],
     data() {
       return {};
@@ -39,6 +46,11 @@
     methods: {
       noteModified(note) {
         note.modified = true;
+      },
+      sharesUpdated(note, shares) {
+        note.shares = shares;
+        note.modified = true;
+        this.saveNote(note);
       },
       async saveNote(note) {
         const showError = () => {

@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Note;
+use App\Models\Note_share;
 use App\Notifications\ResetPassword as ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -89,5 +90,10 @@ class User extends Authenticatable implements JWTSubject
     public function notes()
     {
         return $this->hasMany(Note::class);
+    }
+
+    public function sharedNotes()
+    {
+        return $this->hasManyThrough(Note::class, Note_share::class, 'email', 'id', 'email', 'note_id');
     }
 }

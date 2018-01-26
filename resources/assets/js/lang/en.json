@@ -60,5 +60,8 @@
   "notes_index_delete_button_label": "Delete",
   "notes_index_delete_error_message": "There was a problem when trying to delete this note. Please reload the page and try again.",
   "notes_create_title_placeholder": "Untitled note",
-  "notes_create_contents_placeholder": "Your note"
+  "notes_create_contents_placeholder": "Your note",
+  "notes_index_shared_with_label": "Share with",
+  "notes_index_shared_with_add_button_label": "Add",
+  "notes_index_shared_by_label": "This note has been shared with you by"
 }
