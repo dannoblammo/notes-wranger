@@ -63,10 +63,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import LocaleDropdown from './LocaleDropdown'
+  import {mapGetters} from 'vuex';
+  import LocaleDropdown from './LocaleDropdown';
 
-export default {
+  export default {
   data: () => ({
     appName: window.config.appName
   }),
@@ -83,9 +83,7 @@ export default {
     async logout () {
       // Log out the user.
       await this.$store.dispatch('auth/logout')
-
-      // Redirect to login.
-      this.$router.push({ name: 'login' })
+      this.$router.push({name: 'welcome'});
     }
   }
 }

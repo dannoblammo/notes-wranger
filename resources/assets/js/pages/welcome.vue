@@ -22,8 +22,12 @@
       <hr class="my-4">
       <p>{{$t('home_secondary_paragraph')}}</p>
       <p class="text-center">
-        <router-link :to="{ name: 'notes_index' }" class="btn btn-primary btn-lg" href="#" role="button">
-          {{$t('home_create_new_button_label')}}
+        <router-link :to="{ name: 'login' }" class="btn btn-success btn-lg" href="#" role="button">
+          {{ $t('login') }}
+        </router-link>
+
+        <router-link :to="{ name: 'register' }" class="btn btn-primary btn-lg" href="#" role="button">
+          {{ $t('register') }}
         </router-link>
       </p>
     </div>
