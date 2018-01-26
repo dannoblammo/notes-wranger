@@ -26,6 +26,11 @@
         </div>
       </div>
     </div>
+
+    <div class="text-center">
+      <small class="text-muted">{{$t('notes_create_get_started_new_note_text')}}</small>
+    </div>
+
   </div>
 </template>
 

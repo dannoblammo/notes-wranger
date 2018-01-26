@@ -20,17 +20,16 @@
         </div>
       </div>
 
-      <div class="row mt-5">
-        <div class="container">
-          <div class="card-columns">
-            <note v-for="note in notes"
-                  :key="note.id"
-                  :note="note"
-                  @noteDeleted="deleteNote($event.note)"
-                  @noteHidden="hideNote($event.note)"></note>
-          </div>
-        </div>
+    <div class="card-columns mt-5">
+      <div v-for="(note, index) in notes">
+        <note class="mt-2"
+              :key="note.id"
+              :note="note"
+              @noteDeleted="deleteNote($event.note)"
+              @noteHidden="hideNote($event.note)"
+              :first="index === 0"></note>
       </div>
+    </div>
   </div>
 
 </template>

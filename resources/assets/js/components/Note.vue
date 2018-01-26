@@ -18,7 +18,9 @@
                        :shares="note.shares"
                        @sharesUpdated="sharesUpdated(note, $event.shares)"></note-share-list>
       <div class="card-footer text-right" v-if="!note.is_shared">
-        <note-tool-controls :shares="note.shares" :visible="toolsVisible"></note-tool-controls>
+        <note-tool-controls :shares="note.shares"
+                            :visible="toolsVisible"
+                            @sharesUpdated="sharesUpdated(note, $event.shares)"></note-tool-controls>
 
         <button class="btn btn-sm" :class="{'dropdown-toggle':toolsVisible}" @click="toggleTools">
           <!-- {{$t('notes_index_tools_button_label')}} -->
@@ -28,6 +30,9 @@
           <i class="fa fa-trash-o"></i>
           {{$t('notes_index_delete_button_label')}}
         </button>
+        <div class="text-center mt-3" v-if="first">
+          <small class="text-muted">{{$t('notes_index_sharing_hint')}} <i class="fa fa-user-plus"></i></small>
+        </div>
       </div>
       <div class="card-footer text-muted text-right" v-if="note.is_shared">
         <small class="text-muted">{{$t('notes_index_shared_by_label')}}
@@ -52,7 +57,7 @@
   export default {
     name: 'note',
     components: {Editable, NoteShareList, NoteToolControls},
-    props: ['note'],
+    props: ['note', 'first'],
     data() {
       return {
         isHidden: false,
@@ -81,6 +86,7 @@
       },
 
       async saveNote(note) {
+        console.log('saving');
         const showError = () => {
           swal({
             type: 'error',
