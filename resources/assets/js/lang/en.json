@@ -57,6 +57,7 @@
   "notes_index_save_error_message": "There was a problem saving this note.  Reload the page and try again.",
   "notes_index_confirm_note_delete_title": "Confirm Note Deletion",
   "notes_index_confirm_note_delete_message": "Once this note is deleted, it cannot be recovered.  Are you sure you want to delete it forever?",
+  "notes_index_tools_button_label": "Share...",
   "notes_index_delete_button_label": "Delete",
   "notes_index_delete_error_message": "There was a problem when trying to delete this note. Please reload the page and try again.",
   "notes_create_title_placeholder": "Untitled note",

@@ -1,27 +1,11 @@
 <template>
-  <div>
-    <hr>
+  <div v-show="emails.length >0">
     <div class="text-left">
       <span class="badge badge-pill badge-light share-email-pill" v-for="share in emails" @click="removeShare(share)">
         <img :src="generateGravatarUrl(share.email, 16)" class="rounded-circle profile-photo mr-1" :title="share.email">
         <span class="share-email">{{share.email}}</span>
         <i class="fa fa-times text-danger"></i>
       </span>
-    </div>
-    <div class="row mt-1 justify-content-start">
-      <div class="col-md-9">
-        <form @submit.prevent="addEmail">
-          <div class="input-group mb-3 input-group-sm">
-            <div class="input-group-prepend">
-              <span class="input-group-text">{{$t('notes_index_shared_with_label')}}</span>
-            </div>
-            <input type="email" name="email" v-model="newEmail" class="form-control" placeholder="name@example.com">
-            <div class="input-group-append">
-              <button class="btn">{{$t('notes_index_shared_with_add_button_label')}}</button>
-            </div>
-          </div>
-        </form>
-      </div>
     </div>
   </div>
 </template>
@@ -239,22 +223,10 @@
     props: ['shares'],
     data() {
       return {
-        newEmail: '',
         emails: this.shares
       };
     },
     methods: {
-      addEmail() {
-        if (this.newEmail.trim() !== '') {
-          if (this.emails.some(e => e.email === this.newEmail)) {
-            return false;
-          }
-          this.emails.push({email: this.newEmail});
-          this.newEmail = '';
-          this.$emit('sharesUpdated', {shares: this.emails});
-        }
-      },
-
       generateGravatarUrl(email, size) {
         return 'https://www.gravatar.com/avatar/' + MD5(email) + '.jpg?s=' + size;
       },
@@ -264,7 +236,6 @@
         this.$emit('sharesUpdated', {shares: this.emails});
       }
     }
-
   };
 
 </script>

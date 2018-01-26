@@ -1,8 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col-md-12">
-
-      <h1 class="display-5" v-if="pageIsReady && notes.length > 0">{{ $t('notes_index_heading') }}</h1>
+  <div>
+    <h1 class="display-5" v-if="pageIsReady && notes.length > 0">{{ $t('notes_index_heading') }}</h1>
       <p class="lead" v-if="pageIsReady && notes.length > 0">
         {{$t('notes_index_notes_exist_lead_message')}}
       </p>
@@ -24,14 +22,15 @@
 
       <div class="row mt-5">
         <div class="container">
-          <div class="row justify-content-start align-items-top">
-            <div class="col-md-6 col-md-auto mt-2" v-for="note in notes" :key="note.id">
-              <note :note="note" @noteDeleted="deleteNote($event.note)" @noteHidden="hideNote($event.note)"></note>
-            </div>
+          <div class="card-columns">
+            <note v-for="note in notes"
+                  :key="note.id"
+                  :note="note"
+                  @noteDeleted="deleteNote($event.note)"
+                  @noteHidden="hideNote($event.note)"></note>
           </div>
         </div>
       </div>
-    </div>
   </div>
 
 </template>

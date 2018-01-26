@@ -25,7 +25,7 @@ class NotesController extends Controller
         $sharedNotes = $request
             ->user()
             ->sharedNotes()
-            ->with('user')
+            ->with('user', 'lastModifiedByUser')
             ->orderBy('created_at', 'DESC')
             ->get()
             ->map(function ($note) {
@@ -60,9 +60,17 @@ class NotesController extends Controller
         ]);
 
         $note = $request->user()->notes()->where('id', $noteId)->first();
-        $note->update($validatedData);
 
-        $this->updateShares($note, $validatedData['shares']);
+        // if the note doesn't exist, it might be shared
+        if (!$note) {
+            $note = $request->user()->sharedNotes()->where('notes.id', $noteId)->firstOrFail();
+        }
+
+        $note->update(array_merge($validatedData, ['last_modified_by_user_id' => $request->user()->id]));
+
+        if (isset($validatedData['shares'])){
+            $this->updateShares($note, $validatedData['shares']);
+        }
 
         return response(['success' => true]);
     }
@@ -80,7 +88,7 @@ class NotesController extends Controller
         foreach ($shares as $share) {
             //is the email valid?
             if (filter_var($share['email'], FILTER_VALIDATE_EMAIL)) {
-                Note_share::create(['note_id' => $note->id, 'email' => $share['email']]);
+                Note_share::create(['note_id' => $note->id, 'email' => $share['email'], 'is_read_only' => 0]);
             }
         }
     }
